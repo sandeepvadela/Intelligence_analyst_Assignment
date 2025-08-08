@@ -90,13 +90,6 @@ A simple Python bot that reads the CSV, computes KPIs, compares with the previou
 - run_daily_report(gmail_config)
   - Orchestrates the full workflow and sends the email
 
-### Setup
-- Requirements
-  - Python 3.9+
-  - Install deps:
-    ```
-    pip install -r requirements.txt
-    ```
 - Gmail App Password
   - Enable 2-Step Verification in Google Account
   - Create an App Password 
