@@ -41,11 +41,24 @@ Total Merchants
 
 Optional calculated columns:
 ```
-Weekday = FORMAT('Operations_analyst_data - Copy'[day], "dddd")
-WeekdayNum = WEEKDAY('Operations_analyst_data - Copy'[day], 2)  // Monday=1 ... Sunday=7
+Weekday 
+WeekdayNum 
 ```
 
 ---
+
+## Insights 
+- High transaction count with moderate average ticket size indicates a high-volume, low-value processing model typical for large payment ecosystems.
+- PJ customers dominate TPV; stability and service quality here are crucial for revenue protection.
+- POS and Tap together drive ~75% of TPV. Pix and Link are growing digital channels worth expanding; Bank Slip is negligible.
+- Likely seasonal or campaign-driven peaks , align promos  with these periods.
+- Thursday–Friday–Monday are high-demand days; Sunday is the downtime opportunity for maintenance.
+- PF customers spend more per transaction ,good segment for high-value promotions.
+- Bank Slip and Link are premium-ticket channels; POS and Pix are high-volume but low-ticket.
+- Credit has both highest TPV share and highest average ticket reinforcing its strategic importance.
+- Most volume is in the normal pricing tier ,price optimizations here can have the largest impact.
+- PJ customers are heavy D1 users; PF shows balanced D1/D0 usage.
+- Transaction volume distribution mirrors TPV distribution ,normal tier dominates.
 
 ## Gmail KPI Bot (Detailed)
 A simple Python bot that reads the CSV, computes KPIs, compares with the previous day, detects anomalies, and emails a summary via Gmail.
@@ -53,11 +66,11 @@ A simple Python bot that reads the CSV, computes KPIs, compares with the previou
 ### Files
 - `simple_gmail_kpi_bot.py`  (main bot)
 - `Operations_analyst_data - Copy.csv` (data)
-- `requirements.txt` (dependencies)
+
 
 ### How It Works
 - load_data()
-  - Reads the CSV with `parse_dates=['day']`
+  - Reads the CSV with 
   - Stores the latest date in the dataset for analysis
 - calculate_kpis(target_date)
   - Computes for a given date:
@@ -86,25 +99,23 @@ A simple Python bot that reads the CSV, computes KPIs, compares with the previou
     ```
 - Gmail App Password
   - Enable 2-Step Verification in Google Account
-  - Create an App Password (select "Mail" → device = Other → name it e.g. "KPI Bot")
-  - Copy the 16-character password
+  - Create an App Password 
+  
 
 ### Configuration
-Edit `simple_gmail_kpi_bot.py` (bottom section):
 ```
 GMAIL_CONFIG = {
   'smtp_server': 'smtp.gmail.com',
   'smtp_port': 587,
   'sender_email': 'your_email@gmail.com',
-  'password': 'your_16_char_app_password',
+  'password': 'app_password',
   'recipient_email': 'recipient@example.com'
 }
 
-bot = SimpleGmailKPIBot('Operations_analyst_data - Copy.csv')
+bot = SimpleGmailKPIBot('Cleaned_Operations_analyst_data .csv')
 bot.run_daily_report(gmail_config=GMAIL_CONFIG)
 ```
 
-Tip (optional): store secrets in environment variables instead of in code.
 
 ### Running
 - Manual run:
@@ -114,27 +125,6 @@ Tip (optional): store secrets in environment variables instead of in code.
 - Expected console output:
   - Data loaded successfully
   - Gmail sent successfully!
-
-### Scheduling (Windows Task Scheduler)
-- Open Task Scheduler → Create Basic Task
-- Trigger: Daily at desired time
-- Action: Start a program
-  - Program/script: `python`
-  - Add arguments: `simple_gmail_kpi_bot.py`
-  - Start in: the project folder path
-- Ensure your Python and CSV paths are correct and accessible to the task user
-
-### Troubleshooting
-- ModuleNotFoundError (e.g., pandas)
-  - Run `pip install -r requirements.txt`
-- Gmail auth error
-  - Use an App Password (not your regular password)
-  - Verify `smtp.gmail.com:587` and TLS (starttls)
-- No data found for latest day
-  - Check the `day` column is parsed as Date and matches available dates
-- Email sent but not received
-  - Check Spam folder / filters
-  - Verify recipient address
 
 ### Extensibility
 - Add new KPIs: extend `calculate_kpis`
@@ -147,4 +137,4 @@ Tip (optional): store secrets in environment variables instead of in code.
 ## Deliverables Summary
 - Power BI dashboard with KPI cards and analytical visuals (entity, product, payment method, weekday, installments, price tier, anticipation method)
 - Python Gmail-only bot for daily KPI emails and alerts
-- Setup and scheduling instructions to run unattended
+
